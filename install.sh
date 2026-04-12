@@ -7,10 +7,10 @@ set -e
 # and runs first-time setup.
 # =========================================
 
-VERSION="${UNNE_VERSION:-latest}"
+VERSION="${UNNE_VERSION:-v2.0.0}"
 BASE_URL="${UNNE_DOWNLOAD_URL:-https://github.com/unne-cli/core/releases/download}"
 INSTALL_DIR="/etc/unne"
-BIN_NAME="unne"
+BIN_NAME="unns"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
