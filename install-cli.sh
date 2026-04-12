@@ -6,7 +6,7 @@ set -e
 # Auto-detects OS/arch, downloads binary.
 # =========================================
 
-VERSION="${UNNE_VERSION:-v2.0.0}"
+VERSION="${UNNE_VERSION:-v2.0.1}"
 BASE_URL="${UNNE_DOWNLOAD_URL:-https://github.com/unne-cli/core/releases/download}"
 BIN_NAME="unne"
 
