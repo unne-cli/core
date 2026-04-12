@@ -1,5 +1,6 @@
 ---
 layout: home
+image: /logo.svg
 
 hero:
   name: Unne
