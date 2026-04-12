@@ -1,13 +1,56 @@
-# User Management
+# Пайдаланушыларды басқару
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/server/users.md).
+Unne Server-де пайдаланушы бойынша лимиттер мен қол жеткізуді басқару бар толық пайдаланушы басқару жүйесі бар.
 
-English version: [/server/users.md](/server/users.md)
-:::
+## CLI командалары
 
----
+```bash
+# Пайдаланушы жасау
+unns user create john p@ssw0rd
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/users.md).
+# Әкімші жасау
+unns user create admin secret admin
+
+# Пайдаланушылар тізімі
+unns user list
+
+# Пайдаланушыны жою (токендер де жойылады)
+unns user delete 3
+```
+
+## Пайдаланушы қасиеттері
+
+| Өріс | Сипаттама | Әдепкі |
+|------|-----------|--------|
+| `username` | Бірегей кіру аты | -- |
+| `password` | bcrypt арқылы хэшталған | -- |
+| `role` | `admin` немесе `user` | `user` |
+| `enabled` | Тіркелгі белсенді/өшірілген | `true` |
+| `max_tunnels` | Бір уақытта максимум туннельдер (`0` = шектеусіз) | `0` |
+| `allowed_protocols` | Үтірмен бөлінген: `http`, `tcp` немесе `http,tcp` | `http,tcp` |
+| `traffic_limit` | Кезең бойынша максимум байт (`0` = шектеусіз) | `0` |
+| `traffic_period` | `daily`, `monthly` немесе `quarterly` | `monthly` |
+| `max_devices` | Максимум токендер/құрылғылар (`0` = шектеусіз) | `0` |
+| `skip_warning` | Браузер ескертуін өткізіп жіберуге рұқсат | `false` |
+| `can_use_proxy` | Прокси қолдануға рұқсат | `true` |
+
+## Қол жеткізуді басқару мысалдары
+
+### Тек HTTP пайдаланушы, максимум 5 туннель
+
+```bash
+unns user create webdev pass123
+# Содан кейін әкімші панелінде: allowed_protocols=http, max_tunnels=5 орнатыңыз
+```
+
+### Айына 1ГБ лимитті пайдаланушы
+
+Әкімші панелінде `traffic_limit=1073741824` (байтпен 1ГБ) және `traffic_period=monthly` орнатыңыз.
+
+### Бір құрылғылы пайдаланушы
+
+`max_devices=1` орнатыңыз -- тек бір токен белсенді бола алады. Әрбір токен бір құрылғыны білдіреді.
+
+## Әкімші панелі
+
+Пайдаланушыларды `http://localhost:4041` мекенжайындағы веб-негізделген әкімші панелі арқылы да басқаруға болады. [Әкімші панелі](/kz/server/admin-panel) бөлімін қараңыз.

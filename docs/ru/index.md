@@ -2,9 +2,12 @@
 layout: home
 
 hero:
-  name: Unne
+  name: UNNE
   text: Self-Hosted Tunnel
   tagline: Открывайте локальные сервисы в интернет через собственный сервер. Без третьих сторон, без ограничений.
+  image:
+    src: /logo.svg
+    alt: UNNE
   actions:
     - theme: brand
       text: Начать

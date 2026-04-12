@@ -3,9 +3,12 @@ layout: home
 image: /logo.svg
 
 hero:
-  name: Unne
+  name: UNNE
   text: Self-Hosted Tunnel Solution
   tagline: Expose your local services to the internet through your own server. No third parties, no limits.
+  image:
+    src: /logo.svg
+    alt: UNNE
   actions:
     - theme: brand
       text: Get Started

@@ -1,13 +1,62 @@
-# Server Setup
+# Серверді баптау
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/server/setup.md).
+## Интерактивті баптау
 
-English version: [/server/setup.md](/server/setup.md)
+Баптау шеберін іске қосыңыз:
+
+```bash
+unns setup
+```
+
+Сізден сұралатын мәліметтер:
+
+1. **Домен** -- мыс., `tunnel.example.com`
+2. **Басқару порты** -- клиент қосылыстары (әдепкі: `8222`)
+3. **HTTP порты** -- жалпыға қолжетімді HTTP прокси (әдепкі: `8223`)
+4. **Деректер базасының жолы** -- SQLite деректер базасының орналасуы (әдепкі: `/etc/unne/unne.db`)
+5. **Журнал жолы** -- журнал файлы (әдепкі: `/var/log/unne/server.log`)
+6. **Әкімші панелі** -- қосу/өшіру, порт
+7. **Әкімші тіркелгі деректері** -- пайдаланушы аты мен құпия сөз
+
+Шебер мынаны орындайды:
+- Конфигурация файлын жасау (`config.yml`)
+- SQLite деректер базасын инициализациялау
+- Әкімші пайдаланушысын жасау
+- Бірінші аутентификация токенін генерациялау
+
+::: tip Токеніңізді сақтаңыз!
+Генерацияланған токен тек бір рет көрсетіледі. Оны бірден көшіріп алыңыз.
 :::
 
----
+## Қолмен баптау
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/setup.md).
+Қолмен баптағыңыз келсе:
+
+### 1. config.yml жасау
+
+```yaml
+server:
+  domain: "tunnel.example.com"
+  control_port: 8222
+  http_port: 8223
+storage:
+  database: "/etc/unne/unne.db"
+logging:
+  file_path: "/var/log/unne/server.log"
+admin:
+  enabled: true
+  port: 4041
+  session_ttl: "24h"
+```
+
+### 2. Әкімші пайдаланушысын жасау
+
+```bash
+unns user create admin yourpassword admin
+```
+
+### 3. Токен генерациялау
+
+```bash
+unns token gen 1 my-laptop
+```

@@ -1,13 +1,53 @@
-# Proxy Support
+# Прокси қолдауы
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/cli/proxy.md).
+Unne CLI сервермен байланысын HTTP немесе SOCKS5 прокси арқылы бағыттай алады.
 
-English version: [/cli/proxy.md](/cli/proxy.md)
-:::
+## Қолдану
 
----
+### CLI жалаушасы
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/proxy.md).
+```bash
+unne http 3000 --proxy socks5://127.0.0.1:1080
+unne http 3000 --proxy http://user:pass@proxy.corp.com:8080
+```
+
+### Конфигурация файлы
+
+Жалпы прокси (барлық туннельдер үшін):
+
+```yaml
+proxy:
+  url: "socks5://127.0.0.1:1080"
+```
+
+Жеке туннель проксиі:
+
+```yaml
+tunnels:
+  - name: web
+    protocol: http
+    upstream: localhost:3000
+    proxy:
+      url: "http://corpproxy:8080"
+```
+
+## Қолдау көрсетілетін прокси түрлері
+
+| Схема | Протокол | Аутентификация |
+|-------|----------|----------------|
+| `socks5://` | SOCKS5 | URL арқылы пайдаланушы аты/құпия сөз |
+| `http://` | HTTP CONNECT | URL арқылы негізгі аутентификация |
+| `https://` | HTTPS CONNECT | URL арқылы негізгі аутентификация |
+
+## Аутентификация
+
+Тіркелгі деректерін прокси URL-ге қосыңыз:
+
+```
+socks5://user:password@proxy:1080
+http://user:password@proxy:8080
+```
+
+## Сервер жағындағы шектеулер
+
+Сервер әкімшісі пайдаланушы бойынша прокси қолдануды өшіре алады. Егер тіркелгіңізде `can_use_proxy` рұқсаты болмаса, прокси параметрі қосылыс деңгейінде еленбейді, бірақ қате тудырмайды.

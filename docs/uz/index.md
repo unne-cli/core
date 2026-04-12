@@ -1,9 +1,12 @@
 ---
 layout: home
 hero:
-  name: Unne
+  name: UNNE
   text: Self-Hosted Tunnel
   tagline: "Mahalliy xizmatlarni o'z serveringiz orqali internetga oching. Uchinchi tomonlarsiz, cheklovlarsiz."
+  image:
+    src: /logo.svg
+    alt: UNNE
   actions:
     - theme: brand
       text: Boshlash

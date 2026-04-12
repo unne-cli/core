@@ -1,13 +1,70 @@
-# Admin Panel
+# 管理面板
 
-::: warning 翻译进行中
-中文 — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/zh/server/admin-panel.md).
+管理面板是一个基于 Web 的仪表盘，用于管理 Unne Server。它与隧道服务一起运行在服务器上。
 
-English version: [/server/admin-panel.md](/server/admin-panel.md)
+## 启用
+
+在 `config.yml` 中：
+
+```yaml
+admin:
+  enabled: true
+  port: 4041
+  session_ttl: "24h"
+```
+
+通过 `http://your-server:4041` 访问。
+
+## 登录
+
+使用 `unns setup` 创建的管理员凭据登录。只有 `role: admin` 的用户可以访问面板。
+
+## 仪表盘
+
+仪表盘显示：
+- **用户总数** — 已注册的用户数量
+- **活跃隧道** — 当前连接的隧道数
+- **今日流量** — 今天传输的总字节数
+- **活跃用户排行** — 按流量排名的用户（30 天）
+
+## 用户页面
+
+完整的用户 CRUD 管理：
+- 创建带角色和限制的用户
+- 编辑用户设置（协议、限制、配额）
+- 启用/禁用账户
+- 删除用户（级联删除关联令牌）
+
+## 令牌页面
+
+按用户管理令牌：
+- 生成带设备名称的新令牌
+- 查看令牌状态和最后使用时间
+- 即时撤销令牌
+
+## 活跃隧道
+
+实时查看所有已连接的隧道：
+- 端点（子域名或端口）
+- 协议（HTTP/TCP）
+- 连接用户
+- 连接持续时间
+- 流量计数器（入站/出站字节数）
+
+## 分析
+
+流量统计：
+- 按用户的流量明细
+- 每日/每月汇总
+- 按带宽排名的活跃用户
+
+## 安全性
+
+- 基于会话的认证（HttpOnly Cookie）
+- bcrypt 密码哈希
+- 仅管理员可访问（`role: admin`）
+- 会话在配置的 TTL 后过期（默认：24 小时）
+
+::: warning
+管理面板没有内置 HTTPS。在生产环境中请使用反向代理（Nginx/Caddy）添加 TLS 加密。
 :::
-
----
-
-> This page needs translation to **中文**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/admin-panel.md).

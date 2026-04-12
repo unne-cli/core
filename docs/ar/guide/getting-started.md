@@ -1,13 +1,65 @@
-# Getting Started
+# البدء السريع
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/guide/getting-started.md).
+## المتطلبات الأساسية
 
-English version: [/guide/getting-started.md](/guide/getting-started.md)
-:::
+- خادم VPS أو خادم ذو عنوان IP عام
+- نطاق مع إعداد DNS بحرف البدل (`*.yourdomain.com → عنوان IP الخادم`)
 
----
+## الإعداد السريع
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/guide/getting-started.md).
+### 1. إعداد الخادم
+
+على خادم VPS الخاص بك:
+
+```bash
+# تثبيت بسطر واحد (يكتشف نظام التشغيل والمعمارية تلقائياً ويشغل الإعداد)
+curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sudo bash
+```
+
+أو قم بالتنزيل يدوياً من [إصدارات GitHub](https://github.com/unne-cli/core/releases).
+
+سيطلب منك معالج الإعداد:
+- نطاق الخادم (مثال: `tunnel.example.com`)
+- منفذ التحكم (الافتراضي: `8222`)
+- منفذ وكيل HTTP (الافتراضي: `8223`)
+- إعدادات لوحة الإدارة
+- بيانات اعتماد المدير
+
+### 2. إعداد DNS
+
+وجّه سجل DNS بحرف البدل إلى خادمك:
+
+```
+*.tunnel.example.com → YOUR_SERVER_IP
+```
+
+### 3. تثبيت واجهة سطر الأوامر
+
+على جهازك المحلي — قم بالتنزيل من [الإصدارات](https://github.com/unne-cli/core/releases)، ثم:
+
+```bash
+# إعداد العميل
+unne setup
+```
+
+أدخل عنوان الخادم والمنفذ ورمز المصادقة عند الطلب.
+
+### 4. إنشاء أول نفق
+
+```bash
+# تشغيل خادم ويب محلي (مثال)
+python3 -m http.server 8080
+
+# في طرفية أخرى، أنشئ نفقاً
+unne http 8080
+```
+
+أصبح خادمك المحلي متاحاً الآن على `https://random.tunnel.example.com`.
+
+## ما التالي؟
+
+- [إعداد واجهة سطر الأوامر](/ar/cli/configuration) — تعرف على ملفات إعداد `unne.yml`
+- [أنفاق HTTP](/ar/cli/http-tunnels) — نطاقات فرعية مخصصة، أنفاق متعددة
+- [أنفاق TCP](/ar/cli/tcp-tunnels) — أنفاق قواعد البيانات وSSH
+- [إعداد الخادم](/ar/server/setup) — إعداد الخادم بالتفصيل
+- [إدارة المستخدمين](/ar/server/users) — إنشاء المستخدمين وتعيين الحدود

@@ -1,13 +1,42 @@
-# Web Inspector
+# Web инспектор
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/cli/web-inspector.md).
+Web инспектор браузеріңізде туннель трафигін бақылау үшін Chrome DevTools Network консолі стиліндегі интерфейсті ұсынады.
 
-English version: [/cli/web-inspector.md](/cli/web-inspector.md)
-:::
+## Қосу
 
----
+```bash
+# Жылдам туннельмен
+unne http 3000 --webui
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/web-inspector.md).
+# Арнайы портпен
+unne http 3000 --webui --webui-port 9090
+
+# Конфигурацияда
+gui:
+  webui: true
+  webui_port: 4040
+```
+
+Браузерде `http://localhost:4040` ашыңыз.
+
+## Мүмкіндіктер
+
+- **Сұраныстар кестесі** -- Әдіс, күй, хост, жол, IP, ұзақтық, туннель атауы
+- **Сұраныс мәліметтер панелі** -- Тақырыптар мен денені көрсететін өлшемі өзгертілетін бөлінген панель
+- **Тікелей жаңарту** -- WebSocket арқылы нақты уақытта
+- **Сүзгі** -- Әдіс, жол, күй, IP бойынша іздеу
+- **Туннель сүзгісі** -- Нақты туннельдің сұраныстарын көрсету
+- **IP бойынша топтау** -- Сұраныстарды клиент IP-сі бойынша топтау
+- **JSON пішімдеу** -- Дене жарамды JSON болса, автоматты пішімделеді
+- **Тазалау** -- Сұраныстар тізімін қайта орнату
+
+## API соңғы нүктелері
+
+Web инспектор REST API ұсынады:
+
+| Әдіс | Жол | Сипаттама |
+|------|-----|-----------|
+| `GET` | `/api/requests` | Жиналған сұраныстар тізімі |
+| `GET` | `/api/requests?tunnel=name` | Туннель бойынша сүзу |
+| `GET` | `/api/requests/:id` | Сұраныс мәліметтерін алу |
+| `WS` | `/api/ws` | Тікелей жаңартулар үшін WebSocket |

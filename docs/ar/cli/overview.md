@@ -1,13 +1,47 @@
-# Unne CLI Overview
+# نظرة عامة على Unne CLI
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/cli/overview.md).
+Unne CLI هو تطبيق العميل الذي ينشئ أنفاقاً من جهازك المحلي إلى خادم Unne.
 
-English version: [/cli/overview.md](/cli/overview.md)
-:::
+## الأوامر
 
----
+| الأمر | الوصف |
+|-------|-------|
+| `unne setup` | إعداد تفاعلي لأول مرة |
+| `unne http <port>` | نفق HTTP سريع على منفذ محلي |
+| `unne tcp <port>` | نفق TCP سريع على منفذ محلي |
+| `unne start` | تشغيل الأنفاق المعرّفة في `unne.yml` |
+| `unne check` | التحقق من الاتصال بالخادم |
+| `unne version` | عرض معلومات الإصدار |
+| `unne help` | عرض المساعدة |
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/overview.md).
+## الخيارات العامة
+
+| الخيار | الوصف |
+|--------|-------|
+| `--config <path>` | مسار ملف الإعداد (الافتراضي: `unne.yml`) |
+| `--subdomain <name>` | النطاق الفرعي المطلوب (HTTP فقط) |
+| `--remote-port <port>` | المنفذ البعيد (TCP فقط) |
+| `--proxy <url>` | عنوان البروكسي (`socks5://` أو `http://`) |
+| `--skip-warning`, `--sw` | تخطي صفحة تحذير المتصفح |
+| `--no-tui` | تعطيل واجهة TUI، استخدام مخرجات السجل فقط |
+| `--webui` | تفعيل مفتش الويب |
+| `--webui-port <port>` | منفذ مفتش الويب (الافتراضي: `4040`) |
+
+## أمثلة سريعة
+
+```bash
+# كشف تطبيق ويب محلي
+unne http 3000
+
+# كشف مع نطاق فرعي مخصص
+unne http 3000 --subdomain myapp
+
+# نفق TCP لـ PostgreSQL
+unne tcp 5432 --remote-port 15432
+
+# تشغيل جميع الأنفاق من الإعداد مع مفتش الويب
+unne start --webui
+
+# وضع بدون واجهة عبر بروكسي
+unne http 8080 --no-tui --proxy socks5://127.0.0.1:1080
+```

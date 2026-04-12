@@ -1,13 +1,38 @@
-# Unne Server Overview
+# نظرة عامة على خادم Unne
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/server/overview.md).
+خادم Unne هو مكون الترحيل الذي يقبل اتصالات الأنفاق من عملاء CLI ويوجه حركة المرور من الإنترنت إلى الأنفاق المتصلة.
 
-English version: [/server/overview.md](/server/overview.md)
-:::
+## الأوامر
 
----
+| الأمر | الوصف |
+|-------|-------|
+| `unns` | تشغيل الخادم |
+| `unns setup` | إعداد أولي تفاعلي |
+| `unns config get <key>` | الحصول على قيمة إعداد |
+| `unns config set <key> <value>` | تعيين قيمة إعداد |
+| `unns config list` | سرد جميع قيم الإعدادات |
+| `unns user create <user> <pass> [role]` | إنشاء مستخدم |
+| `unns user list` | سرد جميع المستخدمين |
+| `unns user delete <id>` | حذف مستخدم |
+| `unns token gen <user_id> [device]` | إنشاء رمز مصادقة |
+| `unns token list [user_id]` | سرد الرموز |
+| `unns token revoke <token_id>` | إلغاء رمز مصادقة |
+| `unns setup-check` | طباعة معلومات الخادم لإعداد CLI |
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/overview.md).
+## المنافذ
+
+| المنفذ | الغرض |
+|--------|-------|
+| التحكم (الافتراضي: `8222`) | اتصالات عميل CLI (yamux) |
+| وكيل HTTP (الافتراضي: `8223`) | توجيه حركة مرور HTTP العامة |
+| لوحة الإدارة (الافتراضي: `4041`) | الإدارة عبر الويب |
+| TCP (ديناميكي) | مستمعات TCP لكل نفق |
+
+## التخزين
+
+يستخدم خادم Unne قاعدة بيانات SQLite لاستمرار البيانات:
+
+- **المستخدمون** — حسابات مع أدوار وحدود
+- **الرموز** — رموز مصادقة مرتبطة بالمستخدمين والأجهزة
+- **الجلسات** — جلسات تسجيل دخول لوحة الإدارة
+- **سجل حركة المرور** — تتبع حركة المرور لكل مستخدم للحصص

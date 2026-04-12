@@ -1,13 +1,42 @@
-# Web Inspector
+# مفتش الويب
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/cli/web-inspector.md).
+يوفر مفتش الويب واجهة بنمط وحدة تحكم الشبكة في Chrome DevTools لمراقبة حركة مرور الأنفاق في متصفحك.
 
-English version: [/cli/web-inspector.md](/cli/web-inspector.md)
-:::
+## التفعيل
 
----
+```bash
+# مع نفق سريع
+unne http 3000 --webui
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/web-inspector.md).
+# مع منفذ مخصص
+unne http 3000 --webui --webui-port 9090
+
+# في ملف الإعداد
+gui:
+  webui: true
+  webui_port: 4040
+```
+
+افتح `http://localhost:4040` في متصفحك.
+
+## الميزات
+
+- **جدول الطلبات** — الطريقة، الحالة، المضيف، المسار، عنوان IP، المدة، اسم النفق
+- **لوحة تفاصيل الطلب** — لوحة مقسّمة قابلة لتغيير الحجم مع الترويسات والمحتوى
+- **تحديثات مباشرة** — في الوقت الفعلي عبر WebSocket
+- **تصفية** — البحث حسب الطريقة، المسار، الحالة، عنوان IP
+- **تصفية حسب النفق** — عرض طلبات نفق معين
+- **تجميع حسب IP** — التبديل لتجميع الطلبات حسب عنوان IP العميل
+- **تنسيق JSON** — يتم تنسيق المحتوى تلقائياً إذا كان JSON صالحاً
+- **مسح** — إعادة تعيين قائمة الطلبات
+
+## نقاط نهاية API
+
+يكشف مفتش الويب واجهة REST API:
+
+| الطريقة | المسار | الوصف |
+|---------|--------|-------|
+| `GET` | `/api/requests` | سرد الطلبات الملتقطة |
+| `GET` | `/api/requests?tunnel=name` | التصفية حسب النفق |
+| `GET` | `/api/requests/:id` | الحصول على تفاصيل الطلب |
+| `WS` | `/api/ws` | WebSocket للتحديثات المباشرة |

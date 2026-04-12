@@ -1,9 +1,12 @@
 ---
 layout: home
 hero:
-  name: Unne
+  name: UNNE
   text: 自托管隧道方案
   tagline: 通过自己的服务器将本地服务暴露到互联网。无第三方，无限制。
+  image:
+    src: /logo.svg
+    alt: UNNE
   actions:
     - theme: brand
       text: 快速开始

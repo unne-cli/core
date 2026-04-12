@@ -1,13 +1,49 @@
-# What is Unne?
+# ما هو Unne؟
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/guide/what-is-unne.md).
+Unne هو حل أنفاق مستضاف ذاتياً يتيح لك كشف الخدمات المحلية على الإنترنت من خلال خادمك الخاص. فكر فيه كبديل مستضاف ذاتياً لـ ngrok أو Cloudflare Tunnel أو localtunnel.
 
-English version: [/guide/what-is-unne.md](/guide/what-is-unne.md)
-:::
+## المكونات
 
----
+يتكون Unne من جزأين:
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/guide/what-is-unne.md).
+| المكون | الوصف |
+|--------|-------|
+| **Unne CLI** (`unne`) | تطبيق العميل الذي يعمل على جهازك وينشئ الأنفاق |
+| **Unne Server** (`unns`) | تطبيق الخادم الذي يقبل اتصالات الأنفاق ويوجه حركة المرور |
+
+## كيف يعمل
+
+```
+الإنترنت → Unne Server (خادم VPS الخاص بك) → Yamux Multiplexing → Unne CLI → الخدمة المحلية
+                                ↑
+                    subdomain.yourdomain.com
+```
+
+1. تقوم بتشغيل `unns` على خادم VPS ذي عنوان IP عام ونطاق
+2. يتم توجيه DNS لـ `*.yourdomain.com` إلى خادمك
+3. تقوم بتشغيل `unne http 3000` على جهازك المحلي
+4. يتصل Unne CLI بالخادم وينشئ نفقاً متعدد الإرسال
+5. تصبح خدمتك المحلية متاحة على `https://random.yourdomain.com`
+
+## الميزات الرئيسية
+
+- **أنفاق HTTP** مع نطاقات فرعية مخصصة أو مولّدة تلقائياً
+- **أنفاق TCP** لقواعد البيانات وSSH والبروتوكولات الأخرى
+- **لوحة TUI** بنمط mitmproxy لفحص الطلبات
+- **مفتش الويب** بنمط وحدة تحكم الشبكة في Chrome DevTools
+- **إدارة المستخدمين** مع حدود وحصص لكل مستخدم
+- **لوحة الإدارة** لإدارة الخادم
+- **دعم البروكسي** (SOCKS5، HTTP CONNECT)
+- **صفحات التحذير** للزوار الجدد (قابلة للتكوين)
+
+## البروتوكول
+
+يستخدم Unne بروتوكول [yamux](https://github.com/hashicorp/yamux) لتعدد الإرسال عبر اتصال TCP واحد. يتيح هذا اتصالاً ثنائي الاتجاه فعالاً بين العميل والخادم دون فتح منافذ متعددة.
+
+## الأمان
+
+- يتم تخزين الرموز كتجزئات SHA-256 (لا يتم تخزينها كنص عادي أبداً)
+- كلمات مرور المدير تستخدم bcrypt
+- قيود بروتوكول وحدود حركة مرور لكل مستخدم
+- صفحات تحذير في المتصفح للزوار الجدد
+- مصادقة قائمة على الجلسات للوحة الإدارة

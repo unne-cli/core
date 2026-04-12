@@ -1,13 +1,65 @@
-# Getting Started
+# Жұмысты бастау
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/guide/getting-started.md).
+## Алдын ала талаптар
 
-English version: [/guide/getting-started.md](/guide/getting-started.md)
-:::
+- Жалпыға қолжетімді IP мекенжайы бар VPS немесе сервер
+- Wildcard DNS баптауға болатын домен (`*.yourdomain.com → сервер IP`)
 
----
+## Жылдам орнату
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/guide/getting-started.md).
+### 1. Серверді орнату
+
+VPS-те:
+
+```bash
+# Бір жолды орнату (ОЖ/архитектураны автоматты анықтайды, орнатуды іске қосады)
+curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sudo bash
+```
+
+Немесе [GitHub Releases](https://github.com/unne-cli/core/releases) бетінен қолмен жүктеп алыңыз.
+
+Орнату шебері сұрайтын мәліметтер:
+- Сервер домені (мыс., `tunnel.example.com`)
+- Басқару порты (әдепкі: `8222`)
+- HTTP прокси порты (әдепкі: `8223`)
+- Әкімші панелінің параметрлері
+- Әкімші тіркелгі деректері
+
+### 2. DNS баптау
+
+Wildcard DNS жазбасын серверіңізге бағыттаңыз:
+
+```
+*.tunnel.example.com → YOUR_SERVER_IP
+```
+
+### 3. CLI орнату
+
+Жергілікті компьютерде -- [Releases](https://github.com/unne-cli/core/releases) бетінен жүктеп алыңыз, содан кейін:
+
+```bash
+# Клиентті баптау
+unne setup
+```
+
+Сұралған кезде сервер мекенжайын, портты және аутентификация токенін енгізіңіз.
+
+### 4. Бірінші туннеліңізді жасау
+
+```bash
+# Жергілікті веб-серверді іске қосу (мысал)
+python3 -m http.server 8080
+
+# Басқа терминалда туннель жасау
+unne http 8080
+```
+
+Сіздің жергілікті серверіңіз енді `https://random.tunnel.example.com` мекенжайында қолжетімді.
+
+## Келесі қадамдар
+
+- [CLI баптау](/kz/cli/configuration) -- `unne.yml` конфигурация файлдары туралы
+- [HTTP туннельдер](/kz/cli/http-tunnels) -- Арнайы субдомендер, бірнеше туннель
+- [TCP туннельдер](/kz/cli/tcp-tunnels) -- Деректер базасы мен SSH туннельдері
+- [Серверді орнату](/kz/server/setup) -- Сервердің толық баптауы
+- [Пайдаланушыларды басқару](/kz/server/users) -- Пайдаланушыларды жасау және лимиттерді орнату

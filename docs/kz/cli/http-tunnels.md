@@ -1,13 +1,66 @@
-# HTTP Tunnels
+# HTTP туннельдер
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/cli/http-tunnels.md).
+HTTP туннельдер жергілікті HTTP қызметті Unne серверіндегі жалпыға қолжетімді субдомен арқылы ашады.
 
-English version: [/cli/http-tunnels.md](/cli/http-tunnels.md)
-:::
+## Жылдам туннель
 
----
+```bash
+unne http 3000
+```
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/http-tunnels.md).
+Бұл `a8f3k2m1.tunnel.example.com` сияқты автоматты жасалған субдоменмен туннель жасайды.
+
+## Арнайы субдомен
+
+```bash
+unne http 3000 --subdomain myapp
+```
+
+Сіздің қызметіңіз `myapp.tunnel.example.com` мекенжайында қолжетімді болады.
+
+## Конфигурация файлынан
+
+`unne.yml` ішінде:
+
+```yaml
+tunnels:
+  - name: frontend
+    protocol: http
+    subdomain: app
+    upstream: localhost:3000
+
+  - name: api
+    protocol: http
+    subdomain: api
+    upstream: localhost:8080
+```
+
+Барлық туннельдерді іске қосу:
+
+```bash
+unne start
+```
+
+## Бірнеше туннель
+
+Бірнеше туннель іске қосылғанда, TUI әрбір туннель үшін қойындыларды көрсетеді (pm2 стилінде). Олардың арасында ауысу үшін `Tab`/`Shift+Tab` пернелерін қолданыңыз.
+
+## Браузер ескертуін өткізіп жіберу
+
+Әдепкі бойынша, бірінші рет кіретін браузер келушілері растау бетін көреді. Оны өткізіп жіберу үшін (тіркелгіңізде рұқсат болса):
+
+```bash
+unne http 3000 --skip-warning
+```
+
+Немесе конфигурацияда:
+
+```yaml
+skip_warning: true
+```
+
+## Сұраныстарды тексеру
+
+Туннель арқылы өтетін әрбір HTTP сұраныс/жауап тексеру үшін жиналады:
+- **TUI**: Тақырыптар мен денені көру үшін сұраныста `Enter` басыңыз
+- **Web инспектор**: `--webui` жалаушасын қосыңыз, содан кейін `http://localhost:4040` ашыңыз

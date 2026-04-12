@@ -1,13 +1,66 @@
-# TUI Dashboard
+# TUI 仪表盘
 
-::: warning 翻译进行中
-中文 — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/zh/cli/tui.md).
+Unne CLI 内置了基于 [BubbleTea](https://github.com/charmbracelet/bubbletea) 的终端 UI。
 
-English version: [/cli/tui.md](/cli/tui.md)
-:::
+## 布局
 
----
+```
+┌─────────────────────────────────────────────────────┐
+│ UNNE TUNNEL  v2.0.0              ● ONLINE           │
+│━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━│
+│ ● web-app (12)  │  ○ api (3)  │  ◌ database        │
+│─────────────────────────────────────────────────────│
+│ #     Method  Path              Status    Time      │
+│ ─────────────────────────────────────────────────── │
+│ 1     GET     /api/users        200       12ms      │
+│ 2     POST    /api/login        201       45ms      │
+│ 3     GET     /static/app.js    304       2ms       │
+│►4     DELETE  /api/users/5      500       120ms     │
+│                                                     │
+│ ↑↓ 导航  enter 详情  esc 返回  v 分屏  q 退出       │
+└─────────────────────────────────────────────────────┘
+```
 
-> This page needs translation to **中文**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/cli/tui.md).
+## 快捷键
+
+| 按键 | 操作 |
+|------|------|
+| `↑` / `k` | 在请求列表中向上移动 |
+| `↓` / `j` | 在请求列表中向下移动 |
+| `Tab` | 下一个隧道标签页 |
+| `Shift+Tab` | 上一个隧道标签页 |
+| `Enter` | 查看请求详情 / 切换请求和响应 |
+| `Esc` | 返回列表 / 关闭详情面板 |
+| `v` | 切换垂直/水平分屏 |
+| `q` / `Ctrl+C` | 退出 |
+
+## 多隧道标签页
+
+通过 `unne start` 运行多个隧道时，每个隧道都有自己的标签页，显示：
+- 连接状态指示器（`●` 已连接、`◌` 连接中、`○` 离线）
+- 隧道名称和请求计数
+- 独立的请求列表
+
+## 请求详情视图
+
+在请求上按 `Enter` 可查看：
+- **请求标签**：方法、路径、主机、请求头、正文
+- **响应标签**：状态码、耗时、响应头、正文
+
+按 `Enter` 在请求和响应之间切换。
+
+## 分屏视图
+
+按 `v` 在以下模式之间切换：
+- **垂直分屏**：左侧为请求列表，右侧为详情
+- **水平分屏**：上方为请求列表，下方为详情
+
+## 禁用 TUI
+
+适用于无头/CI 环境：
+
+```bash
+unne start --no-tui
+```
+
+日志将以纯文本格式输出到标准输出。

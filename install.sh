@@ -69,6 +69,13 @@ main() {
     mkdir -p "$INSTALL_DIR"
     mkdir -p /var/log/unne
 
+    # Stop existing instances
+    if command -v systemctl &>/dev/null; then
+        systemctl stop unne 2>/dev/null || true
+    fi
+    killall $BIN_NAME 2>/dev/null || true
+    sleep 1
+
     # Find binary: local first, then download
     if [ -f "./$BINARY" ]; then
         info "Using local binary: ./$BINARY"
@@ -79,13 +86,27 @@ main() {
     else
         DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
         info "Downloading: $DOWNLOAD_URL"
+        TMP_FILE=$(mktemp)
         if command -v curl &>/dev/null; then
-            curl -fsSL -o "$INSTALL_DIR/$BIN_NAME" "$DOWNLOAD_URL"
+            curl -fSL -o "$TMP_FILE" "$DOWNLOAD_URL" 2>&1
         elif command -v wget &>/dev/null; then
-            wget -qO "$INSTALL_DIR/$BIN_NAME" "$DOWNLOAD_URL"
+            wget -q -O "$TMP_FILE" "$DOWNLOAD_URL" 2>&1
         else
             err "curl or wget required."; exit 1
         fi
+        if [ $? -ne 0 ] || [ ! -s "$TMP_FILE" ]; then
+            rm -f "$TMP_FILE"
+            err "Download failed."
+            err "Try manually: curl -fSL -o /usr/local/bin/$BIN_NAME $DOWNLOAD_URL"
+            exit 1
+        fi
+        mv "$TMP_FILE" "$INSTALL_DIR/$BIN_NAME"
+    fi
+
+    if [ ! -f "$INSTALL_DIR/$BIN_NAME" ] || [ ! -s "$INSTALL_DIR/$BIN_NAME" ]; then
+        err "Download failed. Try:"
+        err "  curl -fsSL -o /usr/local/bin/$BIN_NAME $DOWNLOAD_URL"
+        exit 1
     fi
 
     chmod +x "$INSTALL_DIR/$BIN_NAME"

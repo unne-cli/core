@@ -1,13 +1,53 @@
-# Token Management
+# إدارة الرموز
 
-::: warning الترجمة قيد التقدم
-العربية — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/ar/server/tokens.md).
+الرموز هي بيانات اعتماد المصادقة التي يستخدمها عملاء CLI للاتصال بالخادم. كل رمز مرتبط بمستخدم واختيارياً بجهاز.
 
-English version: [/server/tokens.md](/server/tokens.md)
-:::
+## أوامر CLI
 
----
+```bash
+# إنشاء رمز للمستخدم ذي المعرف 1
+unns token gen 1
 
-> This page needs translation to **العربية**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/tokens.md).
+# إنشاء مع اسم الجهاز
+unns token gen 1 macbook-pro
+
+# سرد جميع الرموز
+unns token list
+
+# سرد رموز مستخدم محدد
+unns token list 1
+
+# إلغاء رمز
+unns token revoke 3
+```
+
+## خصائص الرمز
+
+| الحقل | الوصف |
+|-------|-------|
+| `hash` | تجزئة SHA-256 (مخزنة، لا يتم تخزين النص العادي أبداً) |
+| `user_id` | المستخدم المالك |
+| `device_name` | معرّف الجهاز (اختياري) |
+| `enabled` | نشط أو ملغى |
+| `created_at` | تاريخ الإنشاء |
+| `last_used` | آخر مصادقة ناجحة |
+
+## كيف تعمل الرموز
+
+1. ينشئ المدير رمزاً ← يُعرض الرمز الخام مرة واحدة
+2. يُعطى الرمز للمستخدم
+3. يشغّل المستخدم `unne setup` ويدخل الرمز
+4. يرسل CLI الرمز أثناء المصافحة
+5. يقوم الخادم بتجزئته والبحث عن التجزئة في قاعدة البيانات
+6. يرث الرمز جميع حدود المستخدم الأصل
+
+## الرمز = الجهاز
+
+عندما يتم تعيين `max_devices` على مستخدم، يُحسب كل رمز كجهاز واحد. إذا كان لدى مستخدم `max_devices=2`، يمكنه الحصول على رمزين نشطين كحد أقصى يتصلان في نفس الوقت.
+
+## الأمان
+
+- يتم تخزين الرموز كتجزئات SHA-256 فقط
+- يُعرض الرمز الخام مرة واحدة عند الإنشاء ولا يتم تخزينه أبداً
+- إلغاء الرمز يفصل العميل فوراً
+- يمكن إدارة الرموز عبر CLI أو [لوحة الإدارة](/ar/server/admin-panel)

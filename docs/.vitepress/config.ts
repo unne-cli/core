@@ -65,6 +65,7 @@ export default defineConfig({
           { text: 'Guide', link: '/guide/getting-started' },
           { text: 'CLI', link: '/cli/overview' },
           { text: 'Server', link: '/server/overview' },
+          { text: 'Translations', link: '/translations' },
         ],
         sidebar: { '/guide/': guideSidebar('/'), '/cli/': cliSidebar('/'), '/server/': serverSidebar('/') },
       }
@@ -145,7 +146,8 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/logo-nav.svg',
+    siteTitle: false,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/unne-cli/core' },
     ],

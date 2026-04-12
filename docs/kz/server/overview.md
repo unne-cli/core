@@ -1,13 +1,38 @@
-# Unne Server Overview
+# Unne серверіне шолу
 
-::: warning Аударма жүруде
-Қазақ тілі — [помогите с переводом на GitHub](https://github.com/unne-cli/core/blob/main/docs/kz/server/overview.md).
+Unne Server -- CLI клиенттерінен туннель қосылыстарын қабылдайтын және интернеттен қосылған туннельдерге трафикті бағыттайтын релелік компонент.
 
-English version: [/server/overview.md](/server/overview.md)
-:::
+## Командалар
 
----
+| Команда | Сипаттама |
+|---------|-----------|
+| `unns` | Серверді іске қосу |
+| `unns setup` | Интерактивті бастапқы баптау |
+| `unns config get <key>` | Конфигурация мәнін алу |
+| `unns config set <key> <value>` | Конфигурация мәнін орнату |
+| `unns config list` | Барлық конфигурация мәндерін көрсету |
+| `unns user create <user> <pass> [role]` | Пайдаланушы жасау |
+| `unns user list` | Барлық пайдаланушыларды көрсету |
+| `unns user delete <id>` | Пайдаланушыны жою |
+| `unns token gen <user_id> [device]` | Токен генерациялау |
+| `unns token list [user_id]` | Токендерді көрсету |
+| `unns token revoke <token_id>` | Токенді қайтарып алу |
+| `unns setup-check` | CLI баптауы үшін сервер ақпаратын шығару |
 
-> This page needs translation to **Қазақ тілі**. You can help by submitting a pull request to [unne-cli/core](https://github.com/unne-cli/core).
->
-> In the meantime, please refer to the [English version](/server/overview.md).
+## Порттар
+
+| Порт | Мақсаты |
+|------|---------|
+| Басқару (әдепкі: `8222`) | CLI клиент қосылыстары (yamux) |
+| HTTP прокси (әдепкі: `8223`) | Жалпыға қолжетімді HTTP трафикті бағыттау |
+| Әкімші панелі (әдепкі: `4041`) | Веб-негізделген басқару |
+| TCP (динамикалық) | Әр туннельге арналған TCP тыңдаушылар |
+
+## Сақтау орны
+
+Unne Server деректерді сақтау үшін SQLite қолданады:
+
+- **Пайдаланушылар** -- рөлдері мен лимиттері бар тіркелгілер
+- **Токендер** -- пайдаланушылар мен құрылғыларға байланысты аутентификация токендері
+- **Сессиялар** -- әкімші панеліне кіру сессиялары
+- **Трафик журналы** -- квоталар үшін пайдаланушы бойынша трафикті бақылау
