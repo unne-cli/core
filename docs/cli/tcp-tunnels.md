@@ -9,7 +9,7 @@ TCP tunnels forward raw TCP traffic, suitable for databases, SSH, game servers, 
 unne tcp 5432 --remote-port 15432
 ```
 
-This makes your local PostgreSQL available at `tunnel.example.com:15432`.
+This makes your local PostgreSQL available at `unne.site:15432`.
 
 ## From Config
 
@@ -30,13 +30,13 @@ tunnels:
 
 ```bash
 # PostgreSQL
-psql -h tunnel.example.com -p 15432 -U myuser mydb
+psql -h unne.site -p 15432 -U myuser mydb
 
 # SSH
-ssh -p 2222 user@tunnel.example.com
+ssh -p 2222 user@unne.site
 
 # MySQL
-mysql -h tunnel.example.com -P 13306 -u root
+mysql -h unne.site -P 13306 -u root
 ```
 
 ## Differences from HTTP Tunnels

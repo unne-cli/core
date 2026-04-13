@@ -7,7 +7,7 @@ Unne CLI uses two configuration files that are merged together:
 Created by `unne setup`. Contains server connection info:
 
 ```yaml
-server: "tunnel.example.com"
+server: "unne.site"
 port: 8222
 authtoken: "your-auth-token"
 ```
@@ -20,7 +20,7 @@ Place in your project root to define tunnels:
 version: "3"
 
 # Override global settings (optional)
-# server: "tunnel.example.com"
+# server: "unne.site"
 # port: 8222
 # authtoken: "your-auth-token"
 

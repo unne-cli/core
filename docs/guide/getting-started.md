@@ -19,7 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sud
 Or download manually from [GitHub Releases](https://github.com/unne-cli/core/releases).
 
 The setup wizard will ask for:
-- Server domain (e.g., `tunnel.example.com`)
+- Server domain (e.g., `unne.site`)
 - Control port (default: `8222`)
 - HTTP proxy port (default: `8223`)
 - Admin panel settings
@@ -30,7 +30,7 @@ The setup wizard will ask for:
 Point a wildcard DNS record to your server:
 
 ```
-*.tunnel.example.com → YOUR_SERVER_IP
+*.unne.site → YOUR_SERVER_IP
 ```
 
 ### 3. Install the CLI
@@ -54,7 +54,7 @@ python3 -m http.server 8080
 unne http 8080
 ```
 
-Your local server is now accessible at `https://random.tunnel.example.com`.
+Your local server is now accessible at `https://random.unne.site`.
 
 ## What's Next?
 

@@ -10,7 +10,7 @@ unns setup
 
 You'll be prompted for:
 
-1. **Domain** — e.g., `tunnel.example.com`
+1. **Domain** — e.g., `unne.site`
 2. **Control Port** — client connections (default: `8222`)
 3. **HTTP Port** — public HTTP proxy (default: `8223`)
 4. **Database Path** — SQLite database location (default: `/etc/unne/unne.db`)
@@ -36,7 +36,7 @@ If you prefer to set up manually:
 
 ```yaml
 server:
-  domain: "tunnel.example.com"
+  domain: "unne.site"
   control_port: 8222
   http_port: 8223
 storage:

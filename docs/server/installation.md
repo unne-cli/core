@@ -2,11 +2,19 @@
 
 ## Quick Install (Recommended)
 
-One command — auto-detects OS and architecture:
+### macOS / Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sudo bash
+curl -fsSL https://unne.site/server/install | sudo bash
 ```
+
+### Windows (PowerShell)
+
+```powershell
+irm https://unne.site/server/install.ps1 | iex
+```
+
+One command — auto-detects OS and architecture, downloads the binary, and runs initial setup.
 
 This will download the correct binary, install it, create a systemd service, and run the initial setup.
 

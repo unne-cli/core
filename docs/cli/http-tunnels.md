@@ -8,7 +8,7 @@ HTTP tunnels expose a local HTTP service through a public subdomain on your Unne
 unne http 3000
 ```
 
-This creates a tunnel with an auto-generated subdomain like `a8f3k2m1.tunnel.example.com`.
+This creates a tunnel with an auto-generated subdomain like `a8f3k2m1.unne.site`.
 
 ## Custom Subdomain
 
@@ -16,7 +16,7 @@ This creates a tunnel with an auto-generated subdomain like `a8f3k2m1.tunnel.exa
 unne http 3000 --subdomain myapp
 ```
 
-Your service will be at `myapp.tunnel.example.com`.
+Your service will be at `myapp.unne.site`.
 
 ## From Config File
 

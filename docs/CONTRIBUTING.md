@@ -6,15 +6,15 @@ Thank you for your interest in contributing to Unne documentation!
 
 We welcome translations into any language. Currently supported:
 
-| Language | Code | Status |
-|----------|------|--------|
-| English | `en` | Complete |
-| Русский | `ru` | Partial |
-| O'zbek | `uz` | Needs translation |
-| Қазақша | `kz` | Needs translation |
+| Language | Code | Status            |
+|----------|------|-------------------|
+| English  | `en` | Complete          |
+| Русский  | `ru` | Partial           |
+| O'zbek   | `uz` | Needs translation |
+| Қазақша  | `kz` | Needs translation |
 | Français | `fr` | Needs translation |
-| العربية | `ar` | Needs translation |
-| 中文 | `zh` | Needs translation |
+| العربية  | `ar` | Needs translation |
+| 中文       | `zh` | Needs translation |
 
 ### How to translate
 
