@@ -5,7 +5,7 @@ Self-hosted tunnel solution — expose local services to the internet through yo
 ## Quick Install (Server)
 
 ```bash
-curl -fsSL https://unne.site/server/install | bash
+curl -fsSL https://unne.site/server/install | sudo bash
 ```
 
 ## Download (CLI)
@@ -46,7 +46,6 @@ unns token gen 1 macbook
 - Admin panel WebUI
 - Reserved subdomains
 - Proxy support (SOCKS5, HTTP)
-- Multilingual docs (EN, RU, UZ, KZ, FR, AR, ZH)
 
 ## Documentation
 
