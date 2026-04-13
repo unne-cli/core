@@ -2,15 +2,13 @@
 set -e
 
 # =========================================
-# Unne Server (unns) — Installer
-# Auto-detects OS/arch, installs binary,
-# and runs first-time setup.
+# Unne CLI — Installer
+# Auto-detects OS/arch, downloads binary.
 # =========================================
 
 VERSION="${UNNE_VERSION:-v2.0.1}"
 BASE_URL="${UNNE_DOWNLOAD_URL:-https://github.com/unne-cli/core/releases/download}"
-INSTALL_DIR="/etc/unne"
-BIN_NAME="unns"
+BIN_NAME="unne"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -46,130 +44,52 @@ detect_arch() {
     esac
 }
 
-check_root() {
-    if [ "$(id -u)" -ne 0 ]; then
-        err "Run as root: sudo bash install.sh"
-        exit 1
-    fi
-}
-
 main() {
-    bold "=== Unne Server Installer ==="
+    bold "=== Unne CLI Installer ==="
     echo ""
-
-    check_root
 
     OS=$(detect_os)
     ARCH=$(detect_arch)
     BINARY="${BIN_NAME}-${OS}-${ARCH}"
 
     info "Detected: ${OS}/${ARCH}"
-    echo ""
 
-    mkdir -p "$INSTALL_DIR"
-    mkdir -p /var/log/unne
-
-    # Stop existing instances
-    if command -v systemctl &>/dev/null; then
-        systemctl stop unne 2>/dev/null || true
+    INSTALL_DIR="/usr/local/bin"
+    if [ "$(id -u)" -ne 0 ]; then
+        INSTALL_DIR="$HOME/.local/bin"
+        mkdir -p "$INSTALL_DIR"
+        info "Installing to $INSTALL_DIR (no root)"
     fi
-    killall $BIN_NAME 2>/dev/null || true
-    sleep 1
 
-    # Find binary: local first, then download
-    if [ -f "./$BINARY" ]; then
-        info "Using local binary: ./$BINARY"
-        cp "./$BINARY" "$INSTALL_DIR/$BIN_NAME"
-    elif [ -f "./server-dist/$BINARY" ]; then
-        info "Using local binary: ./server-dist/$BINARY"
-        cp "./server-dist/$BINARY" "$INSTALL_DIR/$BIN_NAME"
+    DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
+    info "Downloading: $DOWNLOAD_URL"
+
+    if command -v curl &>/dev/null; then
+        curl -fsSL -o "$INSTALL_DIR/$BIN_NAME" "$DOWNLOAD_URL"
+    elif command -v wget &>/dev/null; then
+        wget -qO "$INSTALL_DIR/$BIN_NAME" "$DOWNLOAD_URL"
     else
-        DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
-        info "Downloading: $DOWNLOAD_URL"
-        TMP_FILE=$(mktemp)
-        if command -v curl &>/dev/null; then
-            curl -fSL -o "$TMP_FILE" "$DOWNLOAD_URL" 2>&1
-        elif command -v wget &>/dev/null; then
-            wget -q -O "$TMP_FILE" "$DOWNLOAD_URL" 2>&1
-        else
-            err "curl or wget required."; exit 1
-        fi
-        if [ $? -ne 0 ] || [ ! -s "$TMP_FILE" ]; then
-            rm -f "$TMP_FILE"
-            err "Download failed."
-            err "Try manually: curl -fSL -o /usr/local/bin/$BIN_NAME $DOWNLOAD_URL"
-            exit 1
-        fi
-        mv "$TMP_FILE" "$INSTALL_DIR/$BIN_NAME"
-    fi
-
-    if [ ! -f "$INSTALL_DIR/$BIN_NAME" ] || [ ! -s "$INSTALL_DIR/$BIN_NAME" ]; then
-        err "Download failed. Try:"
-        err "  curl -fsSL -o /usr/local/bin/$BIN_NAME $DOWNLOAD_URL"
-        exit 1
+        err "curl or wget required."; exit 1
     fi
 
     chmod +x "$INSTALL_DIR/$BIN_NAME"
-    ln -sf "$INSTALL_DIR/$BIN_NAME" /usr/local/bin/$BIN_NAME
-    ok "Installed: /usr/local/bin/$BIN_NAME"
-    echo ""
+    ok "Installed: $INSTALL_DIR/$BIN_NAME"
 
-    # Systemd (Linux only)
-    if [ "$OS" = "linux" ] && command -v systemctl &>/dev/null; then
-        info "Creating systemd service..."
-        cat > /etc/systemd/system/unne.service <<EOF
-[Unit]
-Description=Unne Tunnel Server
-After=network.target
-
-[Service]
-Type=simple
-User=root
-WorkingDirectory=$INSTALL_DIR
-ExecStart=$INSTALL_DIR/$BIN_NAME --config $INSTALL_DIR/config.yml
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-EOF
-        systemctl daemon-reload
-        ok "Systemd service: unne.service"
-    fi
-
-    echo ""
-
-    # First-time setup
-    if [ ! -f "$INSTALL_DIR/config.yml" ]; then
-        bold "--- First-time Setup ---"
+    # Check if in PATH
+    if ! command -v $BIN_NAME &>/dev/null; then
         echo ""
-        $BIN_NAME setup
-
-        if [ "$OS" = "linux" ] && command -v systemctl &>/dev/null; then
-            systemctl enable unne
-            systemctl start unne
-            echo ""
-            ok "Server started and enabled on boot."
-        fi
-    else
-        ok "Config exists: $INSTALL_DIR/config.yml"
-        if [ "$OS" = "linux" ] && command -v systemctl &>/dev/null; then
-            systemctl restart unne 2>/dev/null || true
-            ok "Server restarted."
-        fi
+        info "Add to your PATH:"
+        echo "  export PATH=\"$INSTALL_DIR:\$PATH\""
     fi
 
     echo ""
     bold "=== Installation Complete ==="
     echo ""
-    echo "Commands:"
-    echo "  unns setup              Initial configuration"
-    echo "  unns config list        View config"
-    echo "  unns user create ...    Create users"
-    echo "  unns token gen ...      Generate tokens"
-    if [ "$OS" = "linux" ]; then
-        echo "  systemctl status unne   Check server status"
-    fi
+    echo "Next steps:"
+    echo "  unne setup              Configure server connection"
+    echo "  unne http <port>        Create HTTP tunnel"
+    echo "  unne tcp <port>         Create TCP tunnel"
+    echo "  unne help               Show all commands"
     echo ""
 }
 
