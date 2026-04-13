@@ -49,7 +49,7 @@ unns token gen 1 macbook
 
 ## Documentation
 
-[docs.unne.dev](https://github.com/unne-cli/core/tree/main/docs) — available in 7 languages.
+[unne.site](https://unne.site/)
 
 ## Contributing
 
