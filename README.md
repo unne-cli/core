@@ -5,7 +5,7 @@ Self-hosted tunnel solution — expose local services to the internet through yo
 ## Quick Install (Server)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sudo bash
+curl -fsSL https://unne.site/server/install | bash
 ```
 
 ## Download (CLI)
