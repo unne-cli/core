@@ -5,17 +5,17 @@
 #   irm https://unne.site/cli/install.ps1 | iex
 # Options (environment variables, work with irm | iex):
 #   $env:UNNE_COMPONENT   = "cli" | "server" | "both"
-#   $env:UNNE_VERSION     = "v2.0.1"
+#   $env:UNNE_VERSION     = "v3.0.0"
 #   $env:UNNE_INSTALL_DIR = "C:\path\to\dir"
 # Or run the file directly:
-#   .\install.ps1 -Component both -Version v2.0.1
+#   .\install.ps1 -Component both -Version v3.0.0
 # =========================================
 
 & {
 param(
     [ValidateSet("cli", "server", "both")]
     [string]$Component = $(if ($env:UNNE_COMPONENT) { $env:UNNE_COMPONENT } else { "cli" }),
-    [string]$Version = $(if ($env:UNNE_VERSION) { $env:UNNE_VERSION } else { "v2.0.1" }),
+    [string]$Version = $(if ($env:UNNE_VERSION) { $env:UNNE_VERSION } else { "v3.0.0" }),
     [string]$InstallDir = $(if ($env:UNNE_INSTALL_DIR) { $env:UNNE_INSTALL_DIR } else { "$env:LOCALAPPDATA\Unne" })
 )
 
