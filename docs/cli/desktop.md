@@ -1,12 +1,43 @@
 # Desktop App (Tray & Window)
 
-`unne` doubles as a small desktop app: an icon in the macOS menu bar or the Windows / Linux system tray, plus a native window with the same interface as `unne ui`.
+Unne is also a regular desktop app: an icon in the macOS menu bar or the Windows / Linux system tray, plus a native window with the same interface as `unne ui`.
+
+## Install
+
+| OS | Download | |
+|----|----------|--|
+| macOS | [Unne-macOS.zip](https://github.com/unne-cli/core/releases/latest/download/Unne-macOS.zip) | Unzip and open **Unne.app** |
+| Windows (x64) | [unne-app-windows-amd64.exe](https://github.com/unne-cli/core/releases/latest/download/unne-app-windows-amd64.exe) | Run it |
+| Windows (ARM) | [unne-app-windows-arm64.exe](https://github.com/unne-cli/core/releases/latest/download/unne-app-windows-arm64.exe) | Run it |
+| Linux | install the CLI, then `unne app install` | Adds Unne to the app menu |
+
+On first launch Unne asks for your **server, port and token** and checks the connection. Then it offers to **install itself**:
+
+- **macOS** — copies Unne.app to *Applications* (Launchpad, Spotlight).
+- **Windows** — installs into `%LOCALAPPDATA%\Programs\Unne` (no administrator rights), adds a Start menu entry and lists Unne under *Settings → Apps* for uninstalling.
+- Optionally: **Open at login** and the **`unne` command** in the terminal.
+
+Everything can be changed later in **Settings** inside the app.
+
+::: warning Unsigned app
+The app isn't code-signed yet. macOS: right-click Unne.app → **Open** the first time (or *System Settings → Privacy & Security → Open Anyway*). Windows SmartScreen: **More info → Run anyway**.
+:::
+
+## How it runs
+
+Opening the app starts the tray icon and the window:
+
+- If the [background service](/cli/autostart) or `unne ui` is already running, the app connects to it.
+- Otherwise the app runs your tunnels itself on a random local port. Quitting the tray stops them.
+
+## Commands
 
 ```bash
-unne tray            # show the tray / menu bar icon
-unne window          # open the Unne window
-unne tray install    # add "Unne" to your apps and start the icon at login
-unne tray uninstall
+unne app             # start the app (tray + window)
+unne app install     # install the app (add --cli for the terminal command)
+unne app uninstall
+unne tray            # only the tray icon
+unne window          # only the window
 ```
 
 ## Tray menu
@@ -30,12 +61,6 @@ If the [background service](/cli/autostart) is installed, the tray and window on
 | Windows | Native window (Microsoft Edge WebView2, included in Windows 10/11) |
 | Linux | App window of Chrome, Chromium, Edge or Brave (no tabs or address bar), otherwise your default browser |
 
-## App shortcut
+## Language
 
-`unne tray install` creates:
-
-- **macOS** — `~/Applications/Unne.app` (Launchpad, Spotlight, Dock) and a login item.
-- **Windows** — a Start menu shortcut and an entry under *Startup apps*.
-- **Linux** — `~/.local/share/applications/unne.desktop` and `~/.config/autostart/unne.desktop`.
-
-Opening the app starts the tray icon and shows the window.
+The app, `unne ui` and the admin panel are available in English and Russian. The language follows your system / browser; switch it with the **RU / EN** button in the top bar.

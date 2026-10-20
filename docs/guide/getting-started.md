@@ -13,7 +13,7 @@ On your VPS:
 
 ```bash
 # One-line install (auto-detects OS/arch, runs setup)
-curl -fsSL https://raw.githubusercontent.com/unne-cli/core/main/install.sh | sudo bash
+curl -fsSL https://unne.site/server/install | sudo bash
 ```
 
 Or download manually from [GitHub Releases](https://github.com/unne-cli/core/releases).
@@ -25,6 +25,8 @@ The setup wizard will ask for:
 - Admin panel settings
 - Admin credentials
 
+Then create a user and a token for your computer in the admin panel (*Users → user → Devices & tokens*).
+
 ### 2. Configure DNS
 
 Point a wildcard DNS record to your server:
@@ -33,18 +35,18 @@ Point a wildcard DNS record to your server:
 *.unne.site → YOUR_SERVER_IP
 ```
 
-### 3. Install the CLI
+### 3. Install the Unne App
 
-On your local machine — download from [Releases](https://github.com/unne-cli/core/releases), then:
+On your computer, pick one:
 
-```bash
-# Configure the client
-unne setup
-```
-
-Enter your server address, port, and auth token when prompted.
+- **Desktop app** — download [Unne for macOS](https://github.com/unne-cli/core/releases/latest/download/Unne-macOS.zip) or [Unne for Windows](https://github.com/unne-cli/core/releases/latest/download/unne-app-windows-amd64.exe) and open it. On first launch it asks for your server, port and token, then offers to install itself.
+- **Command line** — `curl -fsSL https://unne.site/cli/install | bash` (Windows: `irm https://unne.site/cli/install.ps1 | iex`), then run `unne setup` and enter your server address, port and token.
 
 ### 4. Create Your First Tunnel
+
+In the app: **New tunnel** → enter the local port → **Create tunnel**.
+
+Or in a terminal:
 
 ```bash
 # Start a local web server (example)
@@ -58,7 +60,9 @@ Your local server is now accessible at `https://random.unne.site`.
 
 ## What's Next?
 
-- [CLI Configuration](/cli/configuration) — Learn about `unne.yml` config files
+- [Desktop App](/cli/desktop) — Tray icon, window, installation
+- [Autostart](/cli/autostart) — Start tunnels when the computer turns on
+- [Configuration](/cli/configuration) — Learn about `unne.yml` config files
 - [HTTP Tunnels](/cli/http-tunnels) — Custom subdomains, multiple tunnels
 - [TCP Tunnels](/cli/tcp-tunnels) — Database and SSH tunnels
 - [Server Setup](/server/setup) — Detailed server configuration

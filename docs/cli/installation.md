@@ -1,6 +1,16 @@
-# CLI Installation
+# Installation
 
-## Quick Install
+## Desktop App
+
+Download and open — Unne asks for your server and token, then installs itself into Applications / the Start menu:
+
+- **macOS**: [Unne-macOS.zip](https://github.com/unne-cli/core/releases/latest/download/Unne-macOS.zip) (Apple Silicon and Intel)
+- **Windows**: [x64](https://github.com/unne-cli/core/releases/latest/download/unne-app-windows-amd64.exe) · [ARM](https://github.com/unne-cli/core/releases/latest/download/unne-app-windows-arm64.exe)
+- **Linux**: install the command line below, then run `unne app install`
+
+See [Desktop App](/cli/desktop).
+
+## Command Line
 
 ### macOS / Linux
 

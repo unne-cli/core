@@ -8,25 +8,27 @@ Unne consists of two parts:
 
 | Component | Description |
 |-----------|-------------|
-| **Unne CLI** (`unne`) | Client application that runs on your machine and creates tunnels |
+| **Unne App** (`unne`) | Runs on your computer and creates tunnels — as a desktop app (tray icon + window) or from the command line |
 | **Unne Server** (`unns`) | Server application that accepts tunnel connections and routes traffic |
 
 ## How It Works
 
 ```
-Internet → Unne Server (your VPS) → Yamux Multiplexing → Unne CLI → Local Service
+Internet → Unne Server (your VPS) → Yamux Multiplexing → Unne App → Local Service
                                 ↑
                     subdomain.yourdomain.com
 ```
 
 1. You run `unns` on a VPS with a public IP and domain
 2. DNS for `*.yourdomain.com` points to your server
-3. You run `unne http 3000` on your local machine
-4. Unne CLI connects to the server, establishes a multiplexed tunnel
+3. You create a tunnel in the Unne app (or run `unne http 3000`) on your computer
+4. The app connects to the server and establishes a multiplexed tunnel
 5. Your local service is now accessible at `https://random.yourdomain.com`
 
 ## Key Features
 
+- **Desktop app** for macOS, Windows and Linux: tray icon, native window, setup and installation inside the app
+- **Background service** that starts your tunnels when the computer turns on
 - **HTTP tunnels** with custom or auto-generated subdomains
 - **TCP tunnels** for databases, SSH, and other protocols
 - **TUI dashboard** with mitmproxy-style request inspector
@@ -35,6 +37,7 @@ Internet → Unne Server (your VPS) → Yamux Multiplexing → Unne CLI → Loca
 - **Admin panel** for server administration
 - **Proxy support** (SOCKS5, HTTP CONNECT)
 - **Warning pages** for first-time visitors (configurable)
+- **English and Russian** interface
 
 ## Protocol
 

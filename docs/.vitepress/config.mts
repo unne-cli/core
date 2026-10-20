@@ -17,19 +17,20 @@ const guideSidebar = [
 
 const cliSidebar = [
   {
-    text: 'Unne CLI',
+    text: 'Unne App',
     items: [
       { text: 'Overview', link: '/cli/' },
+      { text: 'Desktop App', link: '/cli/desktop' },
       { text: 'Installation', link: '/cli/installation' },
       { text: 'Configuration', link: '/cli/configuration' },
       { text: 'HTTP Tunnels', link: '/cli/http-tunnels' },
       { text: 'TCP Tunnels', link: '/cli/tcp-tunnels' },
       { text: 'TUI Dashboard', link: '/cli/tui' },
       { text: 'Web Inspector', link: '/cli/web-inspector' },
-      { text: 'Desktop App', link: '/cli/desktop' },
       { text: 'Autostart', link: '/cli/autostart' },
       { text: 'Proxy Support', link: '/cli/proxy' },
       { text: 'Error Codes', link: '/cli/error-codes' },
+      { text: 'Changelog', link: '/cli/changelog' },
     ],
   },
 ];
@@ -48,6 +49,7 @@ const serverSidebar = [
       { text: 'Limits & Quotas', link: '/server/limits' },
       { text: 'Error Pages', link: '/server/error-pages' },
       { text: 'API Reference', link: '/server/api' },
+      { text: 'Changelog', link: '/server/changelog' },
     ],
   },
 ];
@@ -82,7 +84,7 @@ export default extendConfig(
           activeMatch: '^/guide/',
         },
         {
-          text: 'CLI',
+          text: 'App',
           link: '/cli/',
           activeMatch: '^/cli/',
         },
@@ -93,8 +95,12 @@ export default extendConfig(
         },
         {
           text: 'Changelog',
-          link: '/changelog',
-          activeMatch: '^/changelog',
+          activeMatch: 'changelog',
+          items: [
+            { text: 'App', link: '/cli/changelog' },
+            { text: 'Server', link: '/server/changelog' },
+            { text: 'All versions', link: '/changelog' },
+          ],
         },
       ],
       sidebar: {
