@@ -4,7 +4,15 @@ Changes to Unne Server (`unns`) and its admin panel. App changes: [App Changelog
 
 Update with `sudo unns update` (or **Update now** on the admin dashboard).
 
-## v3.2.1 <Badge type="tip" text="latest" /> {#v3-2-1}
+## v3.2.2 <Badge type="tip" text="latest" /> {#v3-2-2}
+
+*2026-10-21*
+
+- Fixed: `unns` 3.2.1 reported itself as 3.2.0, so `unns update` kept offering the same update. The server and the app now share one version number.
+- `unns update` checks that the downloaded file runs and reports the expected version before replacing the binary.
+- The admin language switch no longer gets stuck when the address contains `?lang=`.
+
+## v3.2.1 {#v3-2-1}
 
 *2026-10-20*
 

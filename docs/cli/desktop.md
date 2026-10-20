@@ -15,7 +15,10 @@ On first launch Unne asks for your **server, port and token** and checks the con
 
 - **macOS** — copies Unne.app to *Applications* (Launchpad, Spotlight).
 - **Windows** — installs into `%LOCALAPPDATA%\Programs\Unne` (no administrator rights), adds a Start menu entry and lists Unne under *Settings → Apps* for uninstalling.
-- Optionally: **Open at login** and the **`unne` command** in the terminal.
+- The **`unne` command** for the terminal is installed with the app and updated together with it.
+- Optionally: **Open at login**.
+
+Installing only the command line (`curl … | bash`, `irm … | iex`) gives you just the CLI; add the app any time with `unne app install`.
 
 Everything can be changed later in **Settings** inside the app.
 
@@ -33,8 +36,8 @@ Opening the app starts the tray icon and the window:
 ## Commands
 
 ```bash
-unne app             # start the app (tray + window)
-unne app install     # install the app (add --cli for the terminal command)
+unne app             # open the app (tray + window) and return to the prompt
+unne app install     # install the app and the terminal command
 unne app uninstall
 unne tray            # only the tray icon
 unne window          # only the window

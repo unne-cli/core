@@ -4,7 +4,19 @@ Changes to the Unne app — the desktop app, `unne ui` and the `unne` command li
 
 Update with `unne update` (or **Update now** in the app).
 
-## v3.2.1 <Badge type="tip" text="latest" /> {#v3-2-1}
+## v3.2.2 <Badge type="tip" text="latest" /> {#v3-2-2}
+
+*2026-10-21*
+
+- **Windows: the Unne window opens again.** It started hidden, so only the tray icon appeared.
+- **The `unne` command comes with the app.** Installing the app always adds the terminal command (macOS: `~/.local/bin`, Windows: `%LOCALAPPDATA%\Programs\Unne\bin`), and both are updated together.
+- The command-line install scripts still install only the CLI; installing the app is what brings both.
+- `unne app` in a terminal now opens the app in the background and gives the prompt back, telling you where the icon is.
+- **Update now** in the app installs the new version and restarts the app.
+- The language switch no longer gets stuck when the address contains `?lang=`.
+- Self-update checks that the downloaded file runs and reports the expected version before replacing anything.
+
+## v3.2.1 {#v3-2-1}
 
 *2026-10-20*
 
