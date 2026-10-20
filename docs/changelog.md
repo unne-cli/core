@@ -9,6 +9,7 @@ Both are released together under the same version: [GitHub Releases](https://git
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| [v3.2.3](/cli/changelog#v3-2-3) | 2026-10-21 | Windows: the window no longer closes right after opening |
 | [v3.2.2](/cli/changelog#v3-2-2) | 2026-10-21 | Windows window fix, `unne` command installed with the app, server version fix |
 | [v3.2.1](/cli/changelog#v3-2-1) | 2026-10-20 | Unne as a regular desktop app, setup and install inside the app, Russian language |
 | [v3.2.0](/cli/changelog#v3-2-0) | 2026-10-20 | Tray / menu bar icon, native window, new logo |

@@ -4,7 +4,16 @@ Changes to the Unne app — the desktop app, `unne ui` and the `unne` command li
 
 Update with `unne update` (or **Update now** in the app).
 
-## v3.2.2 <Badge type="tip" text="latest" /> {#v3-2-2}
+## v3.2.3 <Badge type="tip" text="latest" /> {#v3-2-3}
+
+*2026-10-21*
+
+- **Windows: the window no longer closes right after opening.** Old Unne windows left running in the background (hidden by v3.2.1) locked the WebView2 profile, so a new window crashed. Unne now closes such windows before opening a new one.
+- A window closes itself when the Unne it belongs to is no longer running, so no stray windows are left behind.
+- If the window still can't start, the tray tries once more with a fresh WebView2 profile and then opens Unne in the browser.
+- The Windows app writes its log (and crash reports) to `%USERPROFILE%\.unne\app.log`.
+
+## v3.2.2 {#v3-2-2}
 
 *2026-10-21*
 

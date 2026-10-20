@@ -4,7 +4,13 @@ Changes to Unne Server (`unns`) and its admin panel. App changes: [App Changelog
 
 Update with `sudo unns update` (or **Update now** on the admin dashboard).
 
-## v3.2.2 <Badge type="tip" text="latest" /> {#v3-2-2}
+## v3.2.3 <Badge type="tip" text="latest" /> {#v3-2-3}
+
+*2026-10-21*
+
+- No server changes; released together with the app (same version number).
+
+## v3.2.2 {#v3-2-2}
 
 *2026-10-21*
 
