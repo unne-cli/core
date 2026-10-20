@@ -14,6 +14,15 @@ Unne Server supports per-user limits to control resource usage.
 | `skip_warning` | Allow clients to skip browser warning | `false` |
 | `can_use_proxy` | Allow proxy connections | `true` |
 
+## Tunnel Types
+
+HTTP and TCP tunnels can be switched off separately:
+
+- **Server-wide** — *Settings → Tunnel types*. When a type is off, nobody can open it, regardless of per-user permissions.
+- **Per user** — *Users → user → General & limits → Tunnel types*.
+
+Turning a type off disconnects live tunnels of that type immediately; clients get `STATUS_UNNE_PROTOCOL_DENIED` when they try again.
+
 ## How Limits Are Enforced
 
 Limits are checked during the handshake when a client connects:

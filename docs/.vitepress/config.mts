@@ -10,6 +10,7 @@ const guideSidebar = [
       { text: 'What is Unne?', link: '/guide/' },
       { text: 'Getting Started', link: '/guide/getting-started' },
       { text: 'Architecture', link: '/guide/architecture' },
+      { text: 'Changelog', link: '/changelog' },
     ],
   },
 ];
@@ -25,6 +26,7 @@ const cliSidebar = [
       { text: 'TCP Tunnels', link: '/cli/tcp-tunnels' },
       { text: 'TUI Dashboard', link: '/cli/tui' },
       { text: 'Web Inspector', link: '/cli/web-inspector' },
+      { text: 'Autostart', link: '/cli/autostart' },
       { text: 'Proxy Support', link: '/cli/proxy' },
       { text: 'Error Codes', link: '/cli/error-codes' },
     ],
@@ -87,6 +89,11 @@ export default extendConfig(
           text: 'Server',
           link: '/server/',
           activeMatch: '^/server/',
+        },
+        {
+          text: 'Changelog',
+          link: '/changelog',
+          activeMatch: '^/changelog',
         },
       ],
       sidebar: {

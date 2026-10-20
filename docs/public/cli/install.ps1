@@ -5,17 +5,17 @@
 #   irm https://unne.site/cli/install.ps1 | iex
 # Options (environment variables, work with irm | iex):
 #   $env:UNNE_COMPONENT   = "cli" | "server" | "both"
-#   $env:UNNE_VERSION     = "v3.0.0"
+#   $env:UNNE_VERSION     = "v3.1.0"
 #   $env:UNNE_INSTALL_DIR = "C:\path\to\dir"
 # Or run the file directly:
-#   .\install.ps1 -Component both -Version v3.0.0
+#   .\install.ps1 -Component both -Version v3.1.0
 # =========================================
 
 & {
 param(
     [ValidateSet("cli", "server", "both")]
     [string]$Component = $(if ($env:UNNE_COMPONENT) { $env:UNNE_COMPONENT } else { "cli" }),
-    [string]$Version = $(if ($env:UNNE_VERSION) { $env:UNNE_VERSION } else { "v3.0.0" }),
+    [string]$Version = $(if ($env:UNNE_VERSION) { $env:UNNE_VERSION } else { "latest" }),
     [string]$InstallDir = $(if ($env:UNNE_INSTALL_DIR) { $env:UNNE_INSTALL_DIR } else { "$env:LOCALAPPDATA\Unne" })
 )
 
@@ -40,7 +40,7 @@ function Get-Arch {
 
 function Install-Binary($name, $arch) {
     $binary = "${name}-windows-${arch}.exe"
-    $url = "$BaseURL/$Version/$binary"
+    $url = if ($Version -eq "latest") { ($BaseURL -replace "/download$", "") + "/latest/download/$binary" } else { "$BaseURL/$Version/$binary" }
     $dest = Join-Path $InstallDir "${name}.exe"
     $tmp = "$dest.download"
 

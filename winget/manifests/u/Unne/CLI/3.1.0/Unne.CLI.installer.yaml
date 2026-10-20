@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+PackageIdentifier: Unne.CLI
+PackageVersion: 3.1.0
+InstallerType: portable
+Commands:
+  - unne
+ReleaseDate: 2026-10-20
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/unne-cli/core/releases/download/v3.1.0/unne-windows-amd64.exe
+    InstallerSha256: 9D1429B4D75A977FE44FF38CE3E3C50F5972FE4B8654CDFCC33A4925566F8F59
+  - Architecture: arm64
+    InstallerUrl: https://github.com/unne-cli/core/releases/download/v3.1.0/unne-windows-arm64.exe
+    InstallerSha256: 5E7A1D01B30019E7FFE2786234BE04EF7267FAE908CE0199AD6D630B26E6192F
+  - Architecture: x86
+    InstallerUrl: https://github.com/unne-cli/core/releases/download/v3.1.0/unne-windows-386.exe
+    InstallerSha256: 5ECAF702E139AAA56F704F395C9F4FAE0255C1D64D2410D41C66D6B5DB763480
+ManifestType: installer
+ManifestVersion: 1.9.0

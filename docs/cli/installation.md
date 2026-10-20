@@ -75,7 +75,10 @@ Usage:
   unne start                        Start tunnels from unne.yml
   unne domains                      List your reserved subdomains
   unne check                        Check server connectivity
-  unne update                       Check for updates
+  unne ui                           Web app to manage and inspect tunnels
+  unne service install|uninstall|status
+                                    Run in the background from start-up
+  unne update [--check]             Update to the latest version
   unne version                      Show version
 
 Options:
@@ -88,3 +91,14 @@ Options:
   --webui, -w                       Enable web inspector
   --webui-port, -wp <port>          Web inspector port (default: 4040)
 ```
+
+## Updating
+
+```bash
+unne update          # download the latest release and replace the binary
+unne update --check  # only check
+```
+
+`unne update` downloads the build for your OS and architecture from GitHub Releases and replaces the binary in place (on Windows the old file is kept as `unne.exe.old` and removed on the next start). If the [background service](/cli/autostart) is installed, it is restarted on the new version. `unne ui` also shows an **Update now** button when a new release is out.
+
+If the binary lives in a system directory (e.g. `/usr/local/bin`), run `sudo unne update`.

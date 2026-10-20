@@ -6,7 +6,7 @@ set -e
 # Auto-detects OS/arch, downloads binary.
 # =========================================
 
-VERSION="${UNNE_VERSION:-v3.0.0}"
+VERSION="${UNNE_VERSION:-latest}"
 BASE_URL="${UNNE_DOWNLOAD_URL:-https://github.com/unne-cli/core/releases/download}"
 BIN_NAME="unne"
 
@@ -61,7 +61,11 @@ main() {
         info "Installing to $INSTALL_DIR (no root)"
     fi
 
-    DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
+    if [ "$VERSION" = "latest" ]; then
+        DOWNLOAD_URL="${BASE_URL%/download}/latest/download/${BINARY}"
+    else
+        DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
+    fi
     info "Downloading: $DOWNLOAD_URL"
 
     if command -v curl &>/dev/null; then

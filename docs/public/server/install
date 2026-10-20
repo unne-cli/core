@@ -7,7 +7,7 @@ set -e
 # and runs first-time setup.
 # =========================================
 
-VERSION="${UNNE_VERSION:-v3.0.0}"
+VERSION="${UNNE_VERSION:-latest}"
 BASE_URL="${UNNE_DOWNLOAD_URL:-https://github.com/unne-cli/core/releases/download}"
 INSTALL_DIR="/etc/unne"
 BIN_NAME="unns"
@@ -84,7 +84,11 @@ main() {
         info "Using local binary: ./server-dist/$BINARY"
         cp "./server-dist/$BINARY" "$INSTALL_DIR/$BIN_NAME"
     else
-        DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
+        if [ "$VERSION" = "latest" ]; then
+            DOWNLOAD_URL="${BASE_URL%/download}/latest/download/${BINARY}"
+        else
+            DOWNLOAD_URL="${BASE_URL}/${VERSION}/${BINARY}"
+        fi
         info "Downloading: $DOWNLOAD_URL"
         TMP_FILE=$(mktemp)
         if command -v curl &>/dev/null; then

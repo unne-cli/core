@@ -108,3 +108,14 @@ server {
     }
 }
 ```
+
+## Updating
+
+```bash
+sudo unns update          # download the latest release, replace the binary, restart the service
+sudo unns update --check  # only check
+```
+
+Admins also see an **Update now** banner on the admin dashboard when a new release is out.
+
+Database upgrades are safe: before a new version changes the schema, the server writes a backup next to the database (`unne.db.bak-v<old>-<date>`). Migrations only add tables and columns, so existing users, tokens and reservations stay as they are.
