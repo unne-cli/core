@@ -76,6 +76,8 @@ Usage:
   unne domains                      List your reserved subdomains
   unne check                        Check server connectivity
   unne ui                           Web app to manage and inspect tunnels
+  unne tray [install]               Menu bar / tray icon (install: app shortcut + login)
+  unne window                       Open Unne in a native window
   unne service install|uninstall|status
                                     Run in the background from start-up
   unne update [--check]             Update to the latest version

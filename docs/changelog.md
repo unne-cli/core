@@ -4,7 +4,19 @@ All notable changes to Unne CLI (`unne`) and Unne Server (`unns`). Releases: [Gi
 
 Update with `unne update` and `sudo unns update`.
 
-## v3.1.0 <Badge type="tip" text="latest" /> {#v3-1-0}
+## v3.2.0 <Badge type="tip" text="latest" /> {#v3-2-0}
+
+*2026-10-20*
+
+### Desktop app
+- **Tray / menu bar icon** (`unne tray`): shows how many tunnels are online and lets you start, stop and copy each tunnel's address. It uses the background service when it's installed and otherwise runs the tunnels itself.
+- **Native window** (`unne window`): the `unne ui` interface in its own window — WKWebView on macOS, WebView2 on Windows, a Chromium app window on Linux.
+- `unne tray install` adds **Unne** to Applications / the Start menu / the app menu and starts the icon at login. See [Desktop App](/cli/desktop).
+
+### Look
+- The admin panel and `unne ui` use the Unne gradient logo, also as the favicon.
+
+## v3.1.0 {#v3-1-0}
 
 *2026-10-20*
 

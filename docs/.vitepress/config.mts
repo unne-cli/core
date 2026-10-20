@@ -26,6 +26,7 @@ const cliSidebar = [
       { text: 'TCP Tunnels', link: '/cli/tcp-tunnels' },
       { text: 'TUI Dashboard', link: '/cli/tui' },
       { text: 'Web Inspector', link: '/cli/web-inspector' },
+      { text: 'Desktop App', link: '/cli/desktop' },
       { text: 'Autostart', link: '/cli/autostart' },
       { text: 'Proxy Support', link: '/cli/proxy' },
       { text: 'Error Codes', link: '/cli/error-codes' },
